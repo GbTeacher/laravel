@@ -82,7 +82,7 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        return redirect()->route('news.edit', ['news' => $id])->withInput($request->all());
     }
 
     /**

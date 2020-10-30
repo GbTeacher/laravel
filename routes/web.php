@@ -16,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/json', function () {
+    return Response::json([
+        'status' => true,
+        'data'   => [
+            'title' => 'News title',
+            'text'  => 'News text',
+        ],
+    ]);
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
