@@ -15,7 +15,10 @@
                 <img src="{{ $oneNews['photo'] }}" class="img-fluid" alt="Responsive image">
             </div>
             <div class="col-md-6 module">
-                <h2><a href="{{ route('news.id', ['id' => $oneNews['id']]) }}" class="badge badge-light" target="_blank">{{ $oneNews['title'] }}</a></h2>
+                <h2><a href="{{ route('news.id', ['id' => $oneNews['id']]) }}"
+                        class="badge badge-light" target="_blank"
+                        style="white-space: normal;"
+                    >{{ $oneNews['title'] }}</a></h2>
                 <p class="line-clamp">{{ $oneNews['shortText'] }}</p>
             </div>
         </div>

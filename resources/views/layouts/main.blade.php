@@ -38,6 +38,7 @@
                 </li>
             </ul>
         </div>
+        <a class="btn btn-light" href="{{ route('news.index') }}">Войти</a>
     </nav>
     <br>
     @yield('content')

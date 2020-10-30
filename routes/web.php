@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,11 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/category', [CategoryController::class, 'all'])->name('category');
-
 Route::get('/news/category/{categoryId}', [NewsController::class, 'allByCategory'])->name('category.news');
-
 Route::get('/news/{id}', [NewsController::class, 'one'])->name('news.id');
+
+Route::prefix('/admin')->group(function () {
+    Route::resource('news', AdminNewsController::class);
+});
 
 
