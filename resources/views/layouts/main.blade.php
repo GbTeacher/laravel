@@ -38,6 +38,8 @@
                 </li>
             </ul>
         </div>
+        <a class="btn btn-dark" href="{{ route('order') }}">Заказ</a>
+        <a class="btn btn-dark" href="{{ route('feedback') }}">Обратная связь</a>
         <a class="btn btn-light" href="{{ route('news.index') }}">Войти</a>
     </nav>
     <br>

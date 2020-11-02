@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,8 +36,16 @@ Route::get('/category', [CategoryController::class, 'all'])->name('category');
 Route::get('/news/category/{categoryId}', [NewsController::class, 'allByCategory'])->name('category.news');
 Route::get('/news/{id}', [NewsController::class, 'one'])->name('news.id');
 
+Route::prefix('/feedback')->group(function () {
+    Route::get('/', [FeedbackController::class, 'index'])->name('feedback');
+    Route::post('/store', [FeedbackController::class, 'store'])->name('feedback.store');
+});
+
+Route::prefix('/order')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('order');
+    Route::post('/store', [OrderController::class, 'store'])->name('order.store');
+});
+
 Route::prefix('/admin')->group(function () {
     Route::resource('news', AdminNewsController::class);
 });
-
-
