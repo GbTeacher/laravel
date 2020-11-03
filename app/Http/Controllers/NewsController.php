@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -12,17 +13,23 @@ class NewsController extends Controller
      */
     public function allByCategory(string $categoryId)
     {
-        if (empty($this->categories[$categoryId])) {
-            return  redirect('category');
-        }
+//        $category = \DB::table('categories')->find($categoryId);
+//
+//        if (!$category) {
+//            return redirect('category');
+//        }
+//
+//        $news = \DB::table('news')->where('category_id', $category->id)->get();
 
-        $category = $this->categories[$categoryId];
+        $news = DB::table('news')
+            ->join('categories', 'news.category_id', '=', 'categories.id')
+            ->where('category_id', $categoryId)
+            ->get([
+                'news.*',
+                'categories.name AS category_name',
+            ]);
 
-        $news = array_filter($this->news, function ($item) use ($categoryId) {
-            return $item['categoryId'] == $categoryId;
-        });
-
-        return view('category_news', compact('news', 'category'));
+        return view('category_news', compact('news'));
     }
 
     /**
