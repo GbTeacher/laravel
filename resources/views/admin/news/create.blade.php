@@ -13,9 +13,9 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Категория</label>
-                    <select class="form-control" id="category" name="category">
+                    <select class="form-control" id="category" name="category_id">
                         @foreach($categories as $category)
-                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                            <option value="{{ $category->id }}">{{ $category->id }} / {{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -25,11 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label for="short-text">Короткий текст</label>
-                    <textarea class="form-control" id="short-text" name="short-text" rows="3">{{ old('short-text') }}</textarea>
+                    <textarea class="form-control" id="short-text" name="short_text" rows="3">{{ old('short_text') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="full-text">Полный текст</label>
-                    <textarea class="form-control" id="full-text" name="full-text" rows="7">{{ old('full-text') }}</textarea>
+                    <textarea class="form-control" id="full-text" name="full_text" rows="7">{{ old('full_text') }}</textarea>
                 </div>
             </div>
             <div class="col-md-4">

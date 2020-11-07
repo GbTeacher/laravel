@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Response;
@@ -17,8 +19,8 @@ class AdminNewsController extends Controller
     public function index()
     {
         return Response::view('admin.news.index', [
-            'news'       => $this->news,
-            'categories' => $this->categories,
+            'news'       => News::query()->paginate(5),
+            'categories' => Category::all()->keyBy('id'),
         ]);
     }
 
@@ -30,7 +32,7 @@ class AdminNewsController extends Controller
     public function create(Request $request)
     {
         return Response::view('admin.news.create', [
-            'categories' => $this->categories,
+            'categories' => Category::all(),
         ]);
     }
 
@@ -38,11 +40,13 @@ class AdminNewsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | RedirectResponse
      */
     public function store(Request $request)
     {
-        return redirect()->route('news.create')->withInput($request->all());
+        News::query()->create($request->except(['_token']));
+
+        return redirect()->route('news.index');
     }
 
     /**
@@ -64,13 +68,11 @@ class AdminNewsController extends Controller
      */
     public function edit($id)
     {
-        if (!empty($this->news[$id])) {
-            return Response::view('admin.news.edit', [
-                'news'       => $this->news[$id],
-                'categories' => $this->categories,
-            ]);
-        }
-        return redirect()->route('news.index');
+        $news = News::query()->findOrFail($id);
+        return Response::view('admin.news.edit', [
+            'news'       => $news,
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -82,7 +84,9 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect()->route('news.edit', ['news' => $id])->withInput($request->all());
+        $news = News::query()->findOrFail($id);
+        $news->update($request->except(['_token']));
+        return redirect()->route('news.index');
     }
 
     /**
@@ -93,6 +97,6 @@ class AdminNewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        News::destroy($id);
     }
 }
