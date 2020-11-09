@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\News;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use Response;
 
-class AdminNewsController extends Controller
+class AdminOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +15,8 @@ class AdminNewsController extends Controller
      */
     public function index()
     {
-        return Response::view('admin.news.index', [
-            'news'       => News::query()->paginate(5),
-            'categories' => Category::all()->keyBy('id'),
+        return \Response::view('admin.order.index', [
+            'orders' => Order::query()->paginate(10),
         ]);
     }
 
@@ -29,24 +25,20 @@ class AdminNewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        return Response::view('admin.news.create', [
-            'categories' => Category::all(),
-        ]);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response | RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        News::query()->create($request->except(['_token']));
-
-        return redirect()->route('news.index');
+        //
     }
 
     /**
@@ -64,14 +56,12 @@ class AdminNewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response | RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $news = News::query()->findOrFail($id);
-        return Response::view('admin.news.edit', [
-            'news'       => $news,
-            'categories' => Category::all(),
+        return \Response::view('admin.order.edit', [
+            'order' => Order::query()->findOrFail($id),
         ]);
     }
 
@@ -84,9 +74,8 @@ class AdminNewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $news = News::query()->findOrFail($id);
-        $news->update($request->except(['_token']));
-        return redirect()->route('news.index');
+        Order::query()->update($request->except(['_token', '_method']));
+        return redirect()->route('order.index');
     }
 
     /**
@@ -95,10 +84,10 @@ class AdminNewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        News::destroy($id);
-        return Response::json([
+        Order::destroy($id);
+        return \Response::json([
             'status' => true,
         ]);
     }

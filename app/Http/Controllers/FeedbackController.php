@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 use Response;
-use Storage;
 
 class FeedbackController extends Controller
 {
@@ -23,15 +23,7 @@ class FeedbackController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\Response
     {
-        $requestData = $request->except(['_token']);
-
-        $fileData = [];
-        if (Storage::exists('feedback.json')) {
-            $fileData = json_decode(Storage::get('feedback.json'), true);
-        }
-        $fileData[] = $requestData;
-
-        Storage::put('feedback.json', json_encode($fileData));
+        Feedback::query()->create($request->except('_token'));
 
         return Response::view('feedback.index', ['status' => true]);
     }

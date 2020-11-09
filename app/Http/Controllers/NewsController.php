@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use DB;
 use Illuminate\Http\Request;
 
@@ -39,11 +40,8 @@ class NewsController extends Controller
      */
     public function one(string $id)
     {
-        if (empty($this->news[$id])) {
-            return redirect('category');
-        }
 
-        $news = $this->news[$id];
+        $news = News::query()->findOrFail($id);
 
         return view('news', compact('news'));
     }
