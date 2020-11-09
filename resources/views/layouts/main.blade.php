@@ -44,6 +44,11 @@
         <a class="btn btn-light" href="{{ route('admin') }}">Войти</a>
     </nav>
     <br>
+    @if(isset($errors) && !empty($errors))
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger" role="alert">{{ $error }}</div>
+        @endforeach
+    @endif
     @yield('content')
     <script src="{{ mix('/js/app.js') }}"></script>
 </div>

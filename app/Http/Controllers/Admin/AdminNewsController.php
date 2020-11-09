@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpsertNewsRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +30,7 @@ class AdminNewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         return Response::view('admin.news.create', [
             'categories' => Category::all(),
@@ -39,25 +40,14 @@ class AdminNewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UpsertNewsRequest $request
      * @return \Illuminate\Http\Response | RedirectResponse
      */
-    public function store(Request $request)
+    public function store(UpsertNewsRequest $request)
     {
         News::query()->create($request->except(['_token']));
 
         return redirect()->route('news.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -66,7 +56,7 @@ class AdminNewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response | RedirectResponse
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $news = News::query()->findOrFail($id);
         return Response::view('admin.news.edit', [
@@ -78,11 +68,11 @@ class AdminNewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpsertNewsRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response | RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpsertNewsRequest $request, int $id)
     {
         $news = News::query()->findOrFail($id);
         $news->update($request->except(['_token']));
@@ -95,7 +85,7 @@ class AdminNewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         News::destroy($id);
         return Response::json([
