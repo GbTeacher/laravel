@@ -29,8 +29,8 @@
                     <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="info">Подробности заказа</label>
-                    <input type="text" class="form-control" id="info" name="info" value="{{ old('info') }}" required>
+                    <label for="comment">Подробности заказа</label>
+                    <input type="text" class="form-control" id="comment" name="comment" value="{{ old('comment') }}" required>
                 </div>
                 <button type="submit" class="btn btn-dark btn-block">Отправить</button>
             </div>
