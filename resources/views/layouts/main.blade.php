@@ -41,8 +41,17 @@
         </div>
         <a class="btn btn-dark" href="{{ route('order') }}">Заказ</a>
         <a class="btn btn-dark" href="{{ route('feedback') }}">Обратная связь</a>
-        <a class="btn btn-light" href="{{ route('admin') }}">Войти</a>
+        @if(Auth::user())
+            <a class="btn btn-dark" href="{{ route('admin') }}">Админ</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <input type="submit" class="btn btn-light" value="Выйти">
+            </form>
+        @else
+            <a class="btn btn-light" href="{{ route('admin') }}">Войти</a>
+        @endif
     </nav>
+
     <br>
     @if(isset($errors) && !empty($errors))
         @foreach($errors->all() as $error)
