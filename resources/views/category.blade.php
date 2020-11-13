@@ -1,8 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Category page')
 
 @section('content')
+
+    @if(Session::has('msg'))
+        @dump(Session::get('msg'))
+    @endif
 
     @php $counter = 0; @endphp
     @foreach($categories as $category)

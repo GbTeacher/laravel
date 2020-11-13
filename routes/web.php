@@ -55,7 +55,7 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::resource('news', AdminNewsController::class);
     Route::resource('feedback', AdminFeedbackController::class)->except(['store']);
     Route::resource('order', AdminOrderController::class)->except(['store']);
-    Route::resource('user', AdminUserController::class);
+    Route::resource('user', AdminUserController::class)->middleware('is.admin');
 });
 
 Auth::routes(['register' => false]);
