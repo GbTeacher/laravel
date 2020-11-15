@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminFeedbackController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
@@ -49,9 +50,18 @@ Route::prefix('/order')->group(function () {
     Route::post('/store', [OrderController::class, 'store'])->name('order.store');
 });
 
-Route::prefix('/admin')->group(function () {
+Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+
     Route::resource('news', AdminNewsController::class);
     Route::resource('feedback', AdminFeedbackController::class)->except(['store']);
     Route::resource('order', AdminOrderController::class)->except(['store']);
+
+    Route::middleware('is.admin')->group(function () {
+        Route::resource('user', AdminUserController::class);
+        Route::get('user/pwd/{user}', [AdminUserController::class, 'password'])->name('user.password');
+        Route::post('user/pwd/update/{user}', [AdminUserController::class, 'passwordUpdate'])->name('user.password.update');
+    });
 });
+
+Auth::routes(['register' => false]);

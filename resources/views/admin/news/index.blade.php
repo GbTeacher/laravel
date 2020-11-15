@@ -1,14 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Admin News')
 
 @section('content')
     <h1>Новости</h1>
-    @if(!empty($newNews))
-        <div class="alert alert-success" role="alert">
-            Новость <a href="{{ route('news.edit', $newNews->id) }}">"{{ $newNews->title }}"</a> успешно сохранена!
-        </div>
-    @endif
     <a href="{{ route('news.create') }}" class="btn btn-dark mb-3 float-right">Добавить новость</a>
     <table class="table">
         <thead class="thead-light">
