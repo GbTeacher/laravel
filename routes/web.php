@@ -52,10 +52,16 @@ Route::prefix('/order')->group(function () {
 
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+
     Route::resource('news', AdminNewsController::class);
     Route::resource('feedback', AdminFeedbackController::class)->except(['store']);
     Route::resource('order', AdminOrderController::class)->except(['store']);
-    Route::resource('user', AdminUserController::class)->middleware('is.admin');
+
+    Route::middleware('is.admin')->group(function () {
+        Route::resource('user', AdminUserController::class);
+        Route::get('user/pwd/{user}', [AdminUserController::class, 'password'])->name('user.password');
+        Route::post('user/pwd/update/{user}', [AdminUserController::class, 'passwordUpdate'])->name('user.password.update');
+    });
 });
 
 Auth::routes(['register' => false]);
