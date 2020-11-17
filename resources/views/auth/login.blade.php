@@ -69,5 +69,17 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+
+                <div class="card-body">
+                        <a href="{{ route('login.vk') }}"><i class="fa fa-vk fa-3x"></i></a>
+                        <a href="{{ route('login.facebook') }}"><i class="fa fa-facebook-square fa-3x"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

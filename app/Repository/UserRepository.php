@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Models\User;
-use SocialiteProviders\Manager\OAuth2\User as UserOAuth;
 
 class UserRepository
 {
