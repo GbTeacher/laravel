@@ -4,11 +4,13 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminFeedbackController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminParserController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,8 +52,18 @@ Route::prefix('/order')->group(function () {
     Route::post('/store', [OrderController::class, 'store'])->name('order.store');
 });
 
+Route::get('/auth/vk', [SocialController::class, 'loginVk'])->name('login.vk');
+Route::get('/auth/vk/response', [SocialController::class, 'responseVk'])->name('response.vk');
+
+Route::get('/auth/facebook', [SocialController::class, 'loginFacebook'])->name('login.facebook');
+Route::get('/auth/facebook/response', [SocialController::class, 'responseFacebook'])->name('response.facebook');
+
+
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+
+    Route::get('/parser', [AdminParserController::class, 'index'])->name('parser');
+    Route::post('/parser/parse', [AdminParserController::class, 'parse'])->name('parser.parse');
 
     Route::resource('news', AdminNewsController::class);
     Route::resource('feedback', AdminFeedbackController::class)->except(['store']);

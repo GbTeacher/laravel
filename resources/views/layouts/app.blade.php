@@ -49,7 +49,7 @@
                         <li class="nav-item"><a class="btn btn-dark" href="{{ route('feedback') }}">Обратная связь</a></li>
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                        @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>

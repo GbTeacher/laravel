@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUserTable extends Migration
+class CreateSourceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AlterUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')
-                ->default(false)
-                ->comment('Является администратором');
+        Schema::create('sources', function (Blueprint $table) {
+            $table->id();
+            $table->string('title', 1000)->nullable(false);
+            $table->string('link', 2000)->nullable(false);
+            $table->timestamps();
         });
     }
 
@@ -27,8 +28,6 @@ class AlterUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['is_admin']);
-        });
+        Schema::dropIfExists('sources');
     }
 }

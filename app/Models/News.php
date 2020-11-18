@@ -17,6 +17,9 @@ class News extends Model
         'short_text',
         'full_text',
         'category_id',
+        'source_id',
+        'source_guid',
+        'link',
     ];
 
     public $timestamps = true;

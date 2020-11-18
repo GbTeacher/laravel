@@ -8,6 +8,7 @@
         <li class="list-group-item"><a class="text-dark"  href="{{ route('news.index') }}">Новости</a></li>
         <li class="list-group-item"><a class="text-dark"  href="{{ route('feedback.index') }}">Обратная связь</a></li>
         <li class="list-group-item"><a class="text-dark" href="{{ route('order.index') }}">Заказы</a></li>
+        <li class="list-group-item"><a class="text-dark" href="{{ route('parser') }}">Парсер</a></li>
     </ul>
 @endsection
 
