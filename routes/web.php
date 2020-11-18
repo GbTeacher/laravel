@@ -63,6 +63,7 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
 
     Route::get('/parser', [AdminParserController::class, 'index'])->name('parser');
+    Route::post('/parser/parse', [AdminParserController::class, 'parse'])->name('parser.parse');
 
     Route::resource('news', AdminNewsController::class);
     Route::resource('feedback', AdminFeedbackController::class)->except(['store']);
