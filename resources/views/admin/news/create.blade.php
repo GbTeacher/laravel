@@ -42,4 +42,19 @@
             </div>
         </div>
     </form>
+
+    <script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <script>
+        let options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Image',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Image&token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&token=',
+        };
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            CKEDITOR.replace('full-text', options);
+        });
+    </script>
 @endsection

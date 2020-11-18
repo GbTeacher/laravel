@@ -12,6 +12,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,10 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
         Route::get('user/pwd/{user}', [AdminUserController::class, 'password'])->name('user.password');
         Route::post('user/pwd/update/{user}', [AdminUserController::class, 'passwordUpdate'])->name('user.password.update');
     });
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
 });
 
 Auth::routes(['register' => false]);

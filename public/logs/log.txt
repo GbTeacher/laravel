@@ -1,0 +1,6 @@
+2020-11-18T20:34:54+00:00 // https://news.yandex.ru/auto.rss
+2020-11-18T20:34:54+00:00 // https://news.yandex.ru/index.rss
+2020-11-18T20:34:54+00:00 // https://news.yandex.ru/health.rss
+2020-11-18T20:34:55+00:00 // https://news.yandex.ru/movies.rss
+2020-11-18T20:34:55+00:00 // https://news.yandex.ru/championsleague.rss
+2020-11-18T20:34:55+00:00 // https://news.yandex.ru/music.rss
